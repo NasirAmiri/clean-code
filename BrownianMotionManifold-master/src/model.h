@@ -73,6 +73,7 @@ public:
 protected:
     virtual void calForces();
     virtual void calForcesHelper(int i, int j, Eigen::Vector3d &F);
+    virtual void calForcesNew(int i, int j, Eigen::Vector3d &F);
     int dimP;
     static const double kb, T, vis;
     int numP, numObstacles;
@@ -83,6 +84,13 @@ protected:
     double Os_pressure;
     double L_dep; // 0.2 of radius size, i.e. 200 nm
     double combinedSize;
+    double dip_m;
+    double eps_f;
+    double eps_s;
+    double a_w;
+    double eps_z;
+    double surft;
+    double Forc;
     std::vector<double> velocity={0.0,2.0e-6,5.0e-6};
     
     posArray obstacles; 
