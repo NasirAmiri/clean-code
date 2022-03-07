@@ -1,5 +1,5 @@
 #include "model.h"
-#include "common.h"
+#include "common.h"PI
 #include <omp.h>
 #include <unordered_map>
 double const Model::T = 293.0;
@@ -28,6 +28,7 @@ Model::Model(){
     L_dep = parameter.L_dep; // 0.2 of radius size, i.e. 200 nm
     radius_nm = radius*1e9;
     combinedSize = (1+L_dep)*radius_nm;
+	Forc = (pow(dip_m,2.0)*eps_o)/(16*M_PI*eps_z*pow(a_w,2.0)*eps_w);
     mobility = diffusivity_t/kb/T;
     trajOutputInterval = parameter.trajOutputInterval;
     fileCounter = 0;
@@ -243,6 +244,32 @@ void Model::calForcesHelper(int i, int j, Eigen::Vector3d &F) {
     }
 }
 
+void Model::calForcesNew(int i, int j, Eigen::Vector3d &F) {
+    double dist;
+    Eigen::Vector3d r;
+
+    dist = 0.0;
+    F.fill(0);
+    r = particles[j]->r - particles[i]->r;
+    dist = r.norm();
+            
+    if (dist < 2.0) {
+        std::cerr << "overlap " << i << "\t" << j << "\t"<< this->timeCounter << "dist: " << dist << "\t" << this->timeCounter <<std::endl;
+
+        dist = 2.06;
+    }
+    if (dist < cutoff) {
+        // the unit of force is kg m s^-2
+        // kappa here is kappa*a a non-dimensional number
+        
+        double Fpp = -4.0/3.0*
+        Os_pressure*M_PI*(-3.0/4.0*pow(combinedSize,2.0)+3.0*dist*dist/16.0*radius_nm*radius_nm);
+        Fpp = -Bpp * Kappa * exp(-Kappa*(dist-2.0));
+        F = Fpp*r/dist;
+	    double Fpp = (pow(Forc,2.0)/(2*M_PI*Surf_t*2.30*dist))+((pow(dip_m,2.0)*2*eps_o*-3)/(4*M_PI*eps_z*pow(eps_w,2)*pow(dist,4)));
+	    F = Fpp*r/dist;
+    }
+}
 void Model::calForces() {
      
     for (int i = 0; i < numP; i++) {
