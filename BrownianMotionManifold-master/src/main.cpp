@@ -1,4 +1,5 @@
 #include <igl/readOFF.h>
+#include <bits/stdc++.h>
 #include <igl/per_face_normals.h>
 #include <igl/writeOBJ.h>
 #include <igl/adjacency_list.h>
@@ -49,6 +50,8 @@ int main(int argc, char *argv[])
 
 
 void testModel(){
+    time_t start, end;
+    time(&start);
     readParameter(false);
     Model m;
     m.mesh = std::make_shared<Mesh>();
@@ -62,7 +65,11 @@ void testModel(){
             m.run();    
         }
     }
-
+time(&end);
+     double time_taken = double(end - start);
+    cout << "Time taken by program is : " << fixed
+         << time_taken << setprecision(5);
+    cout << " sec " << endl;
 }
 
 
