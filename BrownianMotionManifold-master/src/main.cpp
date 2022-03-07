@@ -1,4 +1,5 @@
 #include <igl/readOFF.h>
+#include <time.h>
 #include <bits/stdc++.h>
 #include <igl/per_face_normals.h>
 #include <igl/writeOBJ.h>
@@ -50,7 +51,7 @@ int main(int argc, char *argv[])
 
 
 void testModel(){
-  
+    clock_t tStart = clock();
     readParameter(false);
     Model m;
     m.mesh = std::make_shared<Mesh>();
@@ -64,10 +65,12 @@ void testModel(){
             m.run();    
         }
     }
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 }
 
 
 void testMultiPModel(){
+    clock_t tStart = clock();
     readParameterExternalForce();
     
     
@@ -85,7 +88,7 @@ void testMultiPModel(){
         }
     }
 
-
+printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 
 }
 
