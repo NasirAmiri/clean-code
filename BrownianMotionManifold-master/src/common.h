@@ -3,7 +3,7 @@
 
 struct Parameter {
     int N, dim, trajOutputInterval;
-    double radius, dt, diffu_t, Bpp, Os_pressure, L_dep, cutoff, kappa;
+    double radius, dt, diffu_t, Bpp, Os_pressure, L_dep, cutoff, kappa, dip_m, eps_f, eps_s, a_w, eps_z, surft, Forc;
     int numStep, nCycles;
     std::string iniConfig, filetag;
     int seed, PDE_nstep;
