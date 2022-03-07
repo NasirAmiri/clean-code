@@ -31,7 +31,7 @@ Model::Model(){
     eps_s = parameter.eps_s
     eps_z = parameter.eps_z
     a_w = parameter.a_w
-    surft = parameter.Surft
+    surft = parameter.surft
     radius_nm = radius*1e9;
     combinedSize = (1+L_dep)*radius_nm;
     Forc = (pow(dip_m,2.0)*eps_f)/(16*M_PI*eps_z*pow(a_w,2.0)*eps_s);
