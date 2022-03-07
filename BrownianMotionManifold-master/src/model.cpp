@@ -26,9 +26,16 @@ Model::Model(){
     Kappa = parameter.kappa; // here is kappa*radius
     Os_pressure = parameter.Os_pressure * kb * T * 1e9;
     L_dep = parameter.L_dep; // 0.2 of radius size, i.e. 200 nm
+    dip_m = parameter.dip_m;
+    eps_f = parameter.eps_f
+    eps_s = parameter.eps_s
+	    eps_z = parameter.eps_z
+	    a_w = parameter.a_w
+	    Surface_t = parameter.Surface_t
+	    
     radius_nm = radius*1e9;
     combinedSize = (1+L_dep)*radius_nm;
-	Forc = (pow(dip_m,2.0)*eps_o)/(16*M_PI*eps_z*pow(a_w,2.0)*eps_w);
+	Forc = (pow(dip_m,2.0)*eps_o)/(16*M_PI*eps_z*pow(a_w,2.0)*eps_s);
     mobility = diffusivity_t/kb/T;
     trajOutputInterval = parameter.trajOutputInterval;
     fileCounter = 0;
@@ -266,7 +273,7 @@ void Model::calForcesNew(int i, int j, Eigen::Vector3d &F) {
         Os_pressure*M_PI*(-3.0/4.0*pow(combinedSize,2.0)+3.0*dist*dist/16.0*radius_nm*radius_nm);
         Fpp = -Bpp * Kappa * exp(-Kappa*(dist-2.0));
         F = Fpp*r/dist;
-	    double Fpp = (pow(Forc,2.0)/(2*M_PI*Surf_t*2.30*dist))+((pow(dip_m,2.0)*2*eps_o*-3)/(4*M_PI*eps_z*pow(eps_w,2)*pow(dist,4)));
+	    double Fpp = (pow(Forc,2.0)/(2*M_PI*Surf_t*2.30*dist))+((pow(dipm,2.0)*2*eps_o*-3)/(4*M_PI*eps_z*pow(eps_w,2)*pow(dist,4)));
 	    F = Fpp*r/dist;
     }
 }
