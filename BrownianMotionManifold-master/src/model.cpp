@@ -1,5 +1,5 @@
 #include "model.h"
-#include "common.h"PI
+#include "common.h"
 #include <omp.h>
 #include <unordered_map>
 double const Model::T = 293.0;
@@ -27,11 +27,11 @@ Model::Model(){
     Os_pressure = parameter.Os_pressure * kb * T * 1e9;
     L_dep = parameter.L_dep; // 0.2 of radius size, i.e. 200 nm
     dip_m = parameter.dip_m;
-    eps_f = parameter.eps_f
-    eps_s = parameter.eps_s
-    eps_z = parameter.eps_z
-    a_w = parameter.a_w
-    surft = parameter.surft
+    eps_f = parameter.eps_f;
+    eps_s = parameter.eps_s;
+    eps_z = parameter.eps_z;
+    a_w = parameter.a_w;
+    surft = parameter.surft;
     radius_nm = radius*1e9;
     combinedSize = (1+L_dep)*radius_nm;
     Forc = (pow(dip_m,2.0)*eps_f)/(16*M_PI*eps_z*pow(a_w,2.0)*eps_s);
