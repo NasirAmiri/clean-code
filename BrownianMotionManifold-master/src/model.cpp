@@ -13,6 +13,7 @@ extern Parameter parameter;
 Model::Model(){
     rand_normal = std::make_shared<std::normal_distribution<double>>(0.0, 1.0);
     //github test
+    //github test 2
 
    
     filetag = parameter.filetag;
